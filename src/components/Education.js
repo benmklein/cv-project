@@ -8,8 +8,8 @@ class Education extends Component{
 
     render(){
         return (
-            <div className="education">
-                <h2>Education</h2>
+            <div className={"education " + (this.props.editMode ? "editMode" : null) } onClick={this.props.onClick}>
+                <h2>EDUCATION</h2>
                 {this.props.education.map((school)=>{
                     return (
                         <div className='school' key={school.id}>

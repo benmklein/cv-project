@@ -8,7 +8,7 @@ class Contact extends Component{
     }
     render(){
         return (
-            <div className="contact">
+            <div className={"contact " + (this.props.editMode ? "editMode" : null) } onClick={this.props.onClick}>
                 {this.props.email}
                 <br />
                 {this.props.phone}
