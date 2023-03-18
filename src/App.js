@@ -44,7 +44,6 @@ class App extends Component {
                     yearEnd: "Current",
                     description:
                         "This is a description for the work done at this company. Be sure to emphasise skills and strengths relevant to the job. Try to use industry specific terms.",
-                    id: uniqid(),
                     bulletPoints: [
                         {
                             text: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
@@ -59,6 +58,7 @@ class App extends Component {
                             id: uniqid(),
                         },
                     ],
+                    id: uniqid(),
                 },
             ],
             profile:
@@ -94,15 +94,133 @@ class App extends Component {
     onViewModeClicked = () => {
         this.setState({ editMode: false });
     };
-    onClickSection = (section)=>{
-        if (this.state.editMode){
-            this.setState({editSelection: section, 
-                           hideEditFields: false,
-                           editMode: false},
-                           ()=>console.log(this.state.editSelection + " was selected."))
+    onClickSection = (section) => {
+        if (this.state.editMode) {
+            this.setState({
+                editSelection: section,
+                hideEditFields: false,
+                editMode: false,
+            });
         }
-    }
+    };
+    updateInfo = (updatedInfo) => {
+        this.setState(updatedInfo);
+        this.resetToViewMode();
+    };
 
+    resetToViewMode = () => {
+        this.setState({
+            editMode: false,
+            hideEditFields: true,
+            editSelection: "",
+        });
+    };
+
+    addNewSkill = () => {
+        this.setState({
+            skills: this.state.skills.concat({
+                text: "",
+                id: uniqid(),
+            }),
+        });
+    };
+
+    deleteSkill = (id) => {
+        this.setState({
+            skills: this.state.skills.filter((skill) => {
+                return skill.id !== id;
+            }),
+        });
+    };
+
+    addNewSchool = () => {
+        this.setState({
+            education: this.state.education.concat({
+                schoolName: "",
+                yearStart: "",
+                yearEnd: "",
+                degreeTitle: "",
+                id: uniqid(),
+            }),
+        });
+    };
+
+    deleteSchool = (id) => {
+        this.setState({
+            education: this.state.education.filter((school) => {
+                return school.id !== id;
+            }),
+        });
+    };
+
+    addNewWork = () => {
+        this.setState({
+            workExperience: this.state.workExperience.concat({
+                companyName: "",
+                jobTitle: "",
+                yearStart: "",
+                yearEnd: "",
+                description: "",
+                bulletPoints: [{ text: "", id: uniqid() }],
+                id: uniqid(),
+            }),
+        });
+    };
+
+    deleteWork = (id) => {
+        this.setState(
+            {
+                workExperience: this.state.workExperience.filter((work) => {
+                    return work.id !== id;
+                }),
+            },
+            () => console.log(this.state.workExperience)
+        );
+    };
+    deleteBulletPoint = (pointID, workID) => {
+        // complicated because of nested state:
+        // recreate workplace info without the bullet point
+        let workplace = this.state.workExperience.find((work) => {
+            return work.id === workID;
+        });
+        workplace.bulletPoints = workplace.bulletPoints.filter((point) => {
+            return point.id !== pointID;
+        });
+
+        // chain set states to remove the current state then replace with the new workplace info
+        this.setState(
+            {
+                workExperience: this.state.workExperience.filter((work) => {
+                    return work.id !== workID;
+                }),
+            },
+            () =>
+                this.setState({
+                    workExperience: this.state.workExperience.concat(workplace),
+                })
+        );
+    };
+
+    addNewBulletPoint = (workID) => {
+        const workplace = this.state.workExperience.find((work) => {
+            return work.id === workID;
+        });
+        workplace.bulletPoints.push({
+            text: "",
+            id: uniqid(),
+        });
+        this.setState(
+            {
+                workExperience: this.state.workExperience.filter((work) => {
+                    return work.id !== workID;
+                }),
+            },
+            () =>
+                this.setState({
+                    workExperience: this.state.workExperience.concat(workplace),
+                })
+        );
+    };
     render() {
         const { firstName, lastName, title } = this.state.name;
         const { phone, email, linkedIn } = this.state.contact;
@@ -114,6 +232,16 @@ class App extends Component {
                     hidden={this.state.hideEditFields}
                     selection={this.state.editSelection}
                     state={this.state}
+                    updateInfo={this.updateInfo}
+                    addNewSkill={this.addNewSkill}
+                    deleteSkill={this.deleteSkill}
+                    cancelUpdate={this.resetToViewMode}
+                    deleteSchool={this.deleteSchool}
+                    addNewSchool={this.addNewSchool}
+                    deleteWork={this.deleteWork}
+                    addNewWork={this.addNewWork}
+                    deleteBulletPoint={this.deleteBulletPoint}
+                    addNewBulletPoint={this.addNewBulletPoint}
                 />
                 <EditBar
                     editModeClicked={this.onEditModeClicked}
@@ -126,14 +254,14 @@ class App extends Component {
                         lastName={lastName}
                         title={title}
                         editMode={editMode}
-                        onClick={(e)=>this.onClickSection('name', e)}
+                        onClick={(e) => this.onClickSection("name", e)}
                     />
                     <Contact
                         phone={phone}
                         email={email}
                         linkedIn={linkedIn}
                         editMode={editMode}
-                        onClick={(e)=>this.onClickSection('contact', e)}
+                        onClick={(e) => this.onClickSection("contact", e)}
                     />
                 </div>
                 <hr />
@@ -143,24 +271,26 @@ class App extends Component {
                         <Skills
                             skills={this.state.skills}
                             editMode={editMode}
-                            onClick={(e)=>this.onClickSection('skills', e)}
+                            onClick={(e) => this.onClickSection("skills", e)}
                         />
                         <Education
                             education={this.state.education}
                             editMode={editMode}
-                            onClick={(e)=>this.onClickSection('education', e)}
+                            onClick={(e) => this.onClickSection("education", e)}
                         />
                     </div>
                     <div className="column2">
                         <Profile
                             profile={this.state.profile}
                             editMode={editMode}
-                            onClick={(e)=>this.onClickSection('profile', e)}
+                            onClick={(e) => this.onClickSection("profile", e)}
                         />
                         <WorkExperience
                             workExperience={this.state.workExperience}
                             editMode={editMode}
-                            onClick={(e)=>this.onClickSection('workExperience', e)}
+                            onClick={(e) =>
+                                this.onClickSection("workExperience", e)
+                            }
                         />
                     </div>
                 </div>
