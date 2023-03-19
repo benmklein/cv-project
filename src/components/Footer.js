@@ -11,7 +11,7 @@ class Footer extends Component {
     return (
       <div className="footer">
         <p className="footer-text">made by: </p>  
-        <p>benmklein</p><p className="footer-text">&nbsp; 2023 </p>
+        <p className="footer-name">benmklein</p><p className="footer-text">&nbsp; 2023 </p>
         
      
         <a href="https://github.com/benmklein">

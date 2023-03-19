@@ -3,6 +3,8 @@ body {
     font-family: Roboto;
     margin: 0;
     padding-bottom: 5em;
+    font-stretch: condensed;
+    color: rgb(54, 54, 54);
 }
 @font-face {
     font-family: Roboto;
@@ -43,14 +45,13 @@ h3 {
     display: flex;
     flex-direction: column;
     min-height: 50em;
-    color: rgb(29, 29, 29);
 }
 .header {
     display: flex;
     justify-content: space-between;
 }
 hr {
-    height: 0.1em;
+    height: 0.01em;
     width: 100%;
     background-color: black;
 }
@@ -58,6 +59,7 @@ h1 {
     margin-top: 0;
     display: inline;
     font-size: 3em;
+    color: black;
 }
 h1.firstName {
     font-weight: bold;
@@ -95,22 +97,28 @@ h3 {
     margin-right: 0.5em;
     color: #d1d1d1;
 }
+.footer-name {
+    color: white;
+}
 .githublogo {
     height: 2em;
     filter: invert();
+    margin-left: .5em;
 }
 .linkedinlogo {
     height: 2em;
+    margin-left: 1em;
 }
 .body {
     display: flex;
-    gap: 3em;
+    gap: 2em;
 }
 .column1 {
-    width: 8em;
+    width: 10em;
 }
 .column2 {
     width: max-content;
+    
 }
 .editBar {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -229,4 +237,27 @@ div.schoolField, div.workField{
 }
 div.school {
     margin-bottom: 1em;
+}
+ul{
+    padding-left: 0em;
+    list-style-type:circle;
+    font-stretch: condensed
+}
+ul.bulletPoints{
+    padding-left: 1em;
+}
+ul.bulletPoints > li{
+    margin-bottom: .5em;
+}
+textarea {
+    font-family: Roboto;
+    font-stretch: condensed;
+    width: 100%;
+}
+p{
+    font-stretch: condensed;
+    color: rgb(54, 54, 54);
+}
+img.deleteButton{
+    filter:opacity(70%);
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../styles/styles.css";
 import uniqid from "uniqid";
 import deleteIcon from "../images/delete.svg";
+import EditFieldsButtons from "./EditFieldsButtons";
 
 class EditFields extends Component {
     constructor() {
@@ -60,7 +61,7 @@ class EditFields extends Component {
         const form = Array.from(document.getElementById("editForm").elements);
         let updatedInfo = [];
         let i = 1;
-        console.log(form)
+        console.log(form);
         while (form[i].name === "companyName") {
             let work = {
                 companyName: form[i].value,
@@ -68,7 +69,7 @@ class EditFields extends Component {
                 yearStart: form[i + 2].value,
                 yearEnd: form[i + 3].value,
                 description: form[i + 4].value,
-                id: uniqid()
+                id: uniqid(),
             };
             i += 5;
             let bulletpoints = [];
@@ -81,12 +82,12 @@ class EditFields extends Component {
                 i++;
             }
             work.bulletPoints = bulletpoints;
-            console.log(work)
+            console.log(work);
             updatedInfo.push(work);
-            i += 2
+            i += 2;
         }
         console.log(updatedInfo);
-        return ({workExperience: updatedInfo})
+        return { workExperience: updatedInfo };
     };
     getProfileUpdate = () => {
         const form = document.getElementById("editForm");
@@ -222,7 +223,7 @@ class EditFields extends Component {
                                                 }
                                                 className="editFieldButtons"
                                             >
-                                                Add New Bullet Point
+                                                + Add New Bullet Point
                                             </button>
                                             <button
                                                 className="editFieldButtons"
@@ -236,42 +237,31 @@ class EditFields extends Component {
                                                 alt="Delete Work Experience Entry"
                                             >
                                                 {" "}
-                                                Delete this job
+                                                - Delete this job
                                             </button>
                                             <br />
+                                            <hr />
+                                            <br />
                                         </div>
+                                        
                                     );
                                 })}
-                                <hr />
                                 <button
                                     type="button"
                                     onClick={this.props.addNewWork}
                                     className="editFieldButtons"
                                 >
-                                    Add New Job
+                                    + Add New Job
                                 </button>
                             </fieldset>
-                            <div className="editFieldButtons">
-                                <button
-                                    className="editFieldButtons"
-                                    type="button"
-                                    onClick={(e) =>
-                                        this.props.updateInfo(
-                                            this.getWorkUpdate(),
-                                            e
-                                        )
-                                    }
-                                >
-                                    Enter
-                                </button>
-                                <button
-                                    onClick={this.props.cancelUpdate}
-                                    className="editFieldButtons"
-                                    type="button"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            <EditFieldsButtons
+                                updateInfo={(e) =>
+                                    this.props.updateInfo(this.getWorkUpdate(), e)
+                                }
+                                cancelUpdate={
+                                    this.props.cancelUpdate
+                                }
+                            />
                         </form>
                     </div>
                 );
@@ -368,27 +358,14 @@ class EditFields extends Component {
                                     Add School
                                 </button>
                             </fieldset>
-                            <div className="editFieldButtons">
-                                <button
-                                    className="editFieldButtons"
-                                    type="button"
-                                    onClick={(e) =>
-                                        this.props.updateInfo(
-                                            this.getEducationUpdate(),
-                                            e
-                                        )
-                                    }
-                                >
-                                    Enter
-                                </button>
-                                <button
-                                    onClick={this.props.cancelUpdate}
-                                    className="editFieldButtons"
-                                    type="button"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            <EditFieldsButtons
+                                updateInfo={(e) =>
+                                    this.props.updateInfo(this.getEducationUpdate(), e)
+                                }
+                                cancelUpdate={
+                                    this.props.cancelUpdate
+                                }
+                            />
                         </form>
                     </div>
                 );
@@ -408,27 +385,14 @@ class EditFields extends Component {
                                     defaultValue={profile}
                                 />
                             </fieldset>
-                            <div className="editFieldButtons">
-                                <button
-                                    className="editFieldButtons"
-                                    type="button"
-                                    onClick={(e) =>
-                                        this.props.updateInfo(
-                                            this.getProfileUpdate(),
-                                            e
-                                        )
-                                    }
-                                >
-                                    Enter
-                                </button>
-                                <button
-                                    className="editFieldButtons"
-                                    onClick={this.props.cancelUpdate}
-                                    type="button"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            <EditFieldsButtons
+                                updateInfo={(e) =>
+                                    this.props.updateInfo(this.getProfileUpdate(), e)
+                                }
+                                cancelUpdate={
+                                    this.props.cancelUpdate
+                                }
+                            />
                         </form>
                     </div>
                 );
@@ -465,27 +429,14 @@ class EditFields extends Component {
                                     defaultValue={name.title}
                                 />
                             </fieldset>
-                            <div className="editFieldButtons">
-                                <button
-                                    className="editFieldButtons"
-                                    type="button"
-                                    onClick={(e) =>
-                                        this.props.updateInfo(
-                                            this.getNameUpdate(),
-                                            e
-                                        )
-                                    }
-                                >
-                                    Enter
-                                </button>
-                                <button
-                                    className="editFieldButtons"
-                                    onClick={this.props.cancelUpdate}
-                                    type="button"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            <EditFieldsButtons
+                                updateInfo={(e) =>
+                                    this.props.updateInfo(this.getNameUpdate(), e)
+                                }
+                                cancelUpdate={
+                                    this.props.cancelUpdate
+                                }
+                            />
                         </form>
                     </div>
                 );
@@ -524,27 +475,14 @@ class EditFields extends Component {
                                     defaultValue={contact.linkedIn}
                                 />
                             </fieldset>
-                            <div className="editFieldButtons">
-                                <button
-                                    className="editFieldButtons"
-                                    type="button"
-                                    onClick={(e) =>
-                                        this.props.updateInfo(
-                                            this.getContactUpdate(),
-                                            e
-                                        )
-                                    }
-                                >
-                                    Enter
-                                </button>
-                                <button
-                                    className="editFieldButtons"
-                                    onClick={this.props.cancelUpdate}
-                                    type="button"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            <EditFieldsButtons
+                                updateInfo={(e) =>
+                                    this.props.updateInfo(this.getContactUpdate(), e)
+                                }
+                                cancelUpdate={
+                                    this.props.cancelUpdate
+                                }
+                            />
                         </form>
                     </div>
                 );
@@ -590,27 +528,14 @@ class EditFields extends Component {
                                     Add New Skill
                                 </button>
                             </fieldset>
-                            <div className="editFieldButtons">
-                                <button
-                                    className="editFieldButtons"
-                                    type="button"
-                                    onClick={(e) =>
-                                        this.props.updateInfo(
-                                            this.getSkillsUpdate(),
-                                            e
-                                        )
-                                    }
-                                >
-                                    Enter
-                                </button>
-                                <button
-                                    onClick={this.props.cancelUpdate}
-                                    className="editFieldButtons"
-                                    type="button"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            <EditFieldsButtons
+                                updateInfo={(e) =>
+                                    this.props.updateInfo(this.getSkillsUpdate(), e)
+                                }
+                                cancelUpdate={
+                                    this.props.cancelUpdate
+                                }
+                            />
                         </form>
                     </div>
                 );

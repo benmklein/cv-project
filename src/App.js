@@ -43,7 +43,7 @@ class App extends Component {
                     yearStart: "2022",
                     yearEnd: "Current",
                     description:
-                        "This is a description for the work done at this company. Be sure to emphasise skills and strengths relevant to the job. Try to use industry specific terms.",
+                        "This is a description for the work done at this company. Be sure to emphasize skills and strengths relevant to the job. Try to use industry specific terms.",
                     bulletPoints: [
                         {
                             text: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
